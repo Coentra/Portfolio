@@ -1,0 +1,422 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Desktop background */
+  body, html {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  
+  .desktop {
+    height: 100vh;
+    width: 100vw;
+    background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Icons */
+/* Project icon style */
+.icon {
+    position: absolute;
+    text-align: center;
+    cursor: grab;
+    transition: transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+  }
+  
+  .icon img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .icon span {
+    display: block;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+    font-size: 12px;
+    margin-top: 5px;
+    transition: font-size 0.2s ease;
+  }
+  
+  /* Hover effect for current icon */
+  .icon:hover img {
+    transform: scale(1.2);
+  }
+  
+  /* Hover effect for next icon - JS will add class "next-hover" */
+  .icon.next-hover img {
+    box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.5); /* iOS blue selection */
+    border-radius: 15px;
+  }
+  
+  .icon.next-hover span {
+    font-size: 14px; /* slightly bigger text */
+  }
+
+  /* Project text */
+.icon span {
+    display: block;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+    font-size: 12px;
+    margin-top: 5px;
+  
+    /* Transition for smooth scaling and background */
+    transition: transform 0.2s ease, background-color 0.2s ease, padding 0.2s ease, border-radius 0.2s ease;
+  }
+
+.project-popup {
+  width: 1100px;
+  height: 750px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+  overflow: visible;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  z-index: 1000;
+}
+  
+  .project-titlebar {
+    height: 35px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    position: relative; /* add this */
+    cursor: move;
+    user-select: none;
+  }
+  
+  .project-title {
+    position: absolute;   /* center independently of buttons */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  
+  .window-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+  }
+  
+  .window-buttons span {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .close-btn { background: #ff5f57; }
+  .minimize-btn { background: #ffbd2e; }
+  .maximize-btn { background: #28c840; }
+  
+  .project-title {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .project-content {
+    padding: 20px;
+    height: calc(100% - 35px);
+    overflow-y: auto;
+    line-height: 1.5;
+  }
+  
+  
+  /* Grow icon slightly on hover */
+  .icon:hover img {
+    transform: scale(1.2);
+  }
+  
+  /* Highlight text on hover */
+  .icon:hover span {
+    transform: scale(1.2); /* slightly bigger text */
+    background-color: rgba(10, 132, 255, 0.3); /* iOS blue semi-transparent box */
+    padding: 2px 6px;       /* add space around text */
+    border-radius: 5px;      /* rounded corners like macOS selection */
+  }
+
+  
+  
+  /* Dock */
+  .dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+    width: fit-content;
+  }
+  
+  .dock img {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  
+  .dock img:hover {
+    transform: scale(1.3);
+  }
+
+  .dock-divider {
+    width: 2px;                 /* thin vertical line */
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent like macOS dock */
+    border-radius: 1px;
+    margin: 0 10px;             /* space around divider */
+  }
+  
+  
+  .notes-popup {
+    width: 600px;
+    height: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    display: none; /* Hidden by default */
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    z-index: 999;
+  }
+  
+  .notes-titlebar {
+    height: 30px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: move;
+  }
+  
+  .window-buttons {
+    display: flex;
+    gap: 6px;
+    margin-right: 10px;
+  }
+  
+  .window-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .close-btn { background: #ff5f57; }
+  .minimize-btn { background: #ffbd2e; }
+  .maximize-btn { background: #28c840; }
+  
+  .notes-body {
+    display: flex;
+    height: calc(100% - 30px);
+  }
+  
+  .notes-sidebar {
+    width: 150px;
+    background: #f9f9f9;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .note-section {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .note-section:hover {
+    background: #eee;
+  }
+  
+  .note-section.active {
+    background: #ddd;
+    font-weight: bold;
+  }
+  
+  .notes-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    line-height: 1.5;
+  }
+  
+  .notes-content p {
+    margin-bottom: 12px;
+  }
+  
+  .notes-content ul {
+    padding-left: 20px;
+  }
+
+  .window-buttons span {
+    cursor: default !important; /* Normal cursor, not move */
+  }
+
+  
+  
+  
+
+  
+  
+  /* Dock */
+  .dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+  }
+  
+  .dock img {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  
+  .dock img:hover {
+    transform: scale(1.3);
+  }
+  
+
+.dock.dragging .icon img,
+.dock.dragging .icon span {
+  pointer-events: none; /* disables hover and clicks */
+}
+
+ 
+  
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    background: transparent;       /* fully transparent */
+    display: flex;
+    justify-content: flex-end;     /* push time to the right */
+    align-items: center;
+    padding: 0 10px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 16px;
+    color: white;
+    z-index: 1000;
+  }
+  
+  
+.top-right {
+  display: flex;
+  align-items: center;
+}
+
+.thumbnail {
+  max-width: 300px;   /* bigger preview */
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+/* hidden by default */
+.lightbox {
+  display: none;             /* keep hidden until opened */
+  position: fixed;
+  z-index: 99999;            /* very high so it sits on top */
+  inset: 0;                  /* top:0; right:0; bottom:0; left:0; */
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+/* when open -> show as flexbox so centering works */
+.lightbox.open {
+  display: flex;
+}
+
+/* full-screen (but keep margin from edges) */
+#lightbox-img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+  /* Align bullets with the text above */
+.project-content .problem-list {
+  margin: 0;
+  padding-left: 0;               /* remove browser default indent */
+  list-style-position: inside;   /* bullets sit under the first letter */
+}
+
+/* regular list items spacing */
+.project-content .problem-list .section-text {
+  margin: 0.45em 0;
+  padding-left: 0;
+}
+
+/* special item: replace bullet with red X */
+.project-content .problem-list .error {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.25em; /* space for the X */
+}
+
+/* you can use ::before instead of putting the ❌ in HTML if you prefer */
+.project-content .problem-list .error::before {
+  content: "✖";
+  color: #e74c3c;   /* red */
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(0.05em);
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: 2em;;
+}
+
+.hero-section {
+  font-size: 1.5em;
+}
